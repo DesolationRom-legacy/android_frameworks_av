@@ -2423,8 +2423,8 @@ status_t OMXCodec::allocateOutputBuffersFromNativeWindow() {
     if (err != 0) {
 	ALOGE("mNativeWindow.get()->perform() faild: %s (%d)", strerror(-err),
 		-err);
-	return err; 
-    }	 
+	return err;
+    }
 #endif
 
     CODEC_LOGV("allocating %u buffers from a native window of size %u on "
@@ -3337,16 +3337,16 @@ void OMXCodec::onStateChange(OMX_STATETYPE newState) {
 		     * buffers are allocated if the same SurfaceTexture
 		     * is re-used in a different decode session
 		     */
-		    int err = 
-			mNativeWindow.get()->perform(mNativeWindow.get(), 
+		    int err =
+			mNativeWindow.get()->perform(mNativeWindow.get(),
 						     NATIVE_WINDOW_SET_BUFFERS_SIZE,
 						     0);
 		    if (err != 0) {
 		    	ALOGE("mNativeWindow.get()->Perform() failed: %s (%d)", strerror(-err),
-				-err);	
-		    }		 
+				-err);
+		    }
 #endif
-		    if (mFlags & kEnableGrallocUsageProtected) {	
+		    if (mFlags & kEnableGrallocUsageProtected) {
 	                // We push enough 1x1 blank buffers to ensure that one of
                         // them has made it to the display.  This allows the OMX
                         // component teardown to zero out any protected buffers
@@ -3921,12 +3921,12 @@ bool OMXCodec::drainInputBuffer(BufferInfo *info) {
         flags |= OMX_BUFFERFLAG_EOS;
     } else if (ExtendedUtils::checkIsThumbNailMode(mFlags, mComponentName)
 			&& (!interlaceFormatDetected || interlaceFrameCount >= 2)) {
-	// Because we don't get EOS after getting the first frame, we 
+	// Because we don't get EOS after getting the first frame, we
 	// nee to notify the component with OMX_BUFFERFLAG_EOS, set
-	//mNoMoreOutputData to false so fillOutputBuffer gets called on 
-	// the first output buffer (see comment in fillOutputBuffer), and 
+	//mNoMoreOutputData to false so fillOutputBuffer gets called on
+	// the first output buffer (see comment in fillOutputBuffer), and
 	// mSignalledEOS must be true so drainInputBuffer is not executed
-	// on extra frames. Setting mFinalStatus to ERROR_END_OF_STREAM as 
+	// on extra frames. Setting mFinalStatus to ERROR_END_OF_STREAM as
 	// we dont want to return OK and NULL buffer in read.
 	flags |= OMX_BUFFERFLAG_EOS;
 	mNoMoreOutputData = false;
